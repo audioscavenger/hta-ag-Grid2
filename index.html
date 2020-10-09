@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Ag-Grid Basic Example</title>
+  <meta charset="utf-8">
+  <link rel="icon" href="./assets/favicon.ico">
+
+
+
+  <!-- https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do -->
+  <!-- https://www.robvanderwoude.com/vbstech_hta.php -->
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <hta:application 
+     id="oSample"
+     applicationname="svghtasample1"
+     version="1"
+     scroll="no"
+     sysmenu="yes"
+  </hta>
+  
+  <!-- https://getbootstrap.com/ -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <link href="./assets/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+  <!-- https://www.ag-grid.com/javascript-grid/ -->
+  <!-- <script src='./assets/ag-grid-community.min.js'></script> -->
+  <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-alpine.css">
+
+
+  <script language='javascript' charset='utf-8'>
+    window.resizeTo(900,600);
+    function entperPressed(e){
+      if (e.keyCode == 13) {
+        pipePassword();
+      }
+    }
+    function pipePassword() {
+      var password=document.getElementById('password').value;
+      var fso= new ActiveXObject('Scripting.FileSystemObject').GetStandardStream(1);
+      close(fso.Write(password));
+    }
+  </script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body style="width: 100% !important;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">.col-md-3</div>
+      <div class="col-md-6">.col-md-6</div>
+      <div class="col-md-3">.col-md-3</div>
+      <!-- <div id="myGrid" class="ag-theme-alpine"></div> -->
+      <!-- <div id="myGrid" style="height: 200px; width:500px;" class="ag-theme-alpine"></div> -->
+      <div id="myGrid" style="height: 200px; width:100%;" class="ag-theme-alpine"></div>
+    </div>
+    
+    <hr>
+    <input id='password' type='password' name='password' size='15' onkeypress="return entperPressed(event)" ></input>
+    <hr>
+    <button onclick='pipePassword()'>
+      Submit 
+      <img src="data:image/gif;base64,R0lGODlhIAAgAOYAAABbAIiwiER8RADMANbW1gCZAGaZZsXFxR3oHTrWOgCDAK60rgD0AA6dDmm+aRZmFlDBPubm5gDoACKNIr7mvlCeUACjAGb/ZqK0ojz4PAB1ACbUJgC1AESSRA7DDgDeAA+FD9jl2FbSVmmtab29vUS6PhqnGj62Poi2iACZAO7u7hPSE8zMzABmAN3d3VCsUHj4eH6/fqfMp1q+WiL/In6ufh1xHXGccUzXTBqwAADuAAC9AAD/AADVAN7w3gtlC0mHSR3FHYjDiAqnAAWSBQB6AB6nHl62XpWmlQCLADfpN3WwdSJsIkSNRB/4H6fEp1DqUEH/QQicCDPMM0mpSQDDAEmUSSKTIpWxlS1xLQBmAACwAMPqvlCkUFGyUZWwlQuiC3G/ahKlEg+MDz7JPhWvFafWp3u4ewtpCx+rH3a1dv///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAUUAGsALAAAAAAgACAAAAf/gGuCg4SFhoeIiYqLjI2Oj5CRhFwQORSSiBQlQ0NhFjOYhBQnFqVnB0YFXiqYPjMFYAUFSwcuDrIvrI+uBWIiaQ01tWtmBWQFuY0+RwUNODAmUljDgkkJCUnJictJRFMXUA1jXwcRhFRlURtJXbqFKmHdQRlRSkRXGCzmhEJENDQrFLQjpCLGmCQenPxDQGTCAn2GQij4wIPHAAUVWBUEkaQKg4oWFTiEeGgCB5ADilRQA6LIjo8oi3R4uO/QiCQMcjKoUqSIBQk6c/LsQIKAu0MyNHzQwVRHj6VNmVrQ0KToUUQadkjYyrWrhAIablhtZCXJh7No0xZocYNaIxRKYtOi7VGErdtGIVps6cG3L100SO46spFkgGHDVTT8COwCk4EWhwdwaPEACUlJTwBwqFJlSwsmNEMJAlBgh4XPoUWvAVKkAIAsqVUHAABAQNGaqkMAADJWNaEIBIz6Hk68eKhAADs=" alt="Embedded icon" title="Embedded icon" />
+    </button>
+    <p>Because this HTA includes an X-UA-Compatible header, 
+    it is displayed in IE9 Standards mode when Internet 
+    Explorer 9 is installed on the system.  As a result,
+    SVG can be used to draw a blue star.</p> 
+    <img src="./assets/favicon.ico" alt="Embedded icon" title="Embedded icon" />    
+
+    <svg width="12cm" height="4cm" viewBox="0 0 1200 400"
+        xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <desc>Example Star</desc>
+      <polygon 
+          fill="blue" stroke="blue" stroke-width="10" 
+          points="350,75  379,161 469,161 397,215 423,301 
+                  350,250 277,301 303,215 231,161 321,161" />
+    </svg>
+    
+  </div><!-- /container -->
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="./assets/ie10-viewport-bug-workaround.js"></script>
+
+  <script language='text/javascript'>
+    var columnDefs = [
+      {headerName: "Make", field: "make"},
+      {headerName: "Model", field: "model"},
+      {headerName: "Price", field: "price"}
+    ];
+        
+    // specify the data
+    var rowData = [
+      {make: "Toyota", model: "Celica", price: 35000},
+      {make: "Ford", model: "Mondeo", price: 32000},
+      {make: "Porsche", model: "Boxter", price: 72000}
+    ];
+        
+    // let the grid know which columns and what data to use
+    var gridOptions = {
+      columnDefs: columnDefs,
+      rowData: rowData
+    };
+
+    // setup the grid after the page has finished loading
+    //document.addEventListener('DOMContentLoaded', function() {
+        var gridDiv = document.querySelector('#myGrid');
+        //var gridDiv = document.getElementById('#myGrid');
+        new agGrid.Grid(gridDiv, gridOptions);
+    //});
+  </script>
+</body>
+</html>

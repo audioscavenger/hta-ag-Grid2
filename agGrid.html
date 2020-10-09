@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Ag-Grid Basic Example</title>
+  <!-- https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do -->
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <hta:application 
+     id="oSample"
+     applicationname="svghtasample1"
+     version="1"
+  </hta>
+  
+  <script src='./ag-grid-community.min.js'></script>
+  <script language='text/javascript'>
+    window.resizeTo(900,600);
+    function entperPressed(e){
+      if (e.keyCode == 13) {
+        pipePass();
+      }
+    }
+    function pipePass() {
+      var pass=document.getElementById('pass').value;
+      var fso= new ActiveXObject('Scripting.FileSystemObject').GetStandardStream(1);
+      close(fso.Write(pass));
+    }
+  </script>
+</head>
+<body>
+    <div id="myGrid" style="height: 200px; width:500px;" class="ag-theme-alpine"></div>
+    <hr>
+    <input type='password' name='pass' size='15' onkeypress="return entperPressed(event)" ></input>
+    <hr>
+    <button onclick='pipePass()'>Submit <img src="./assets/favicon.ico" alt="Embedded icon" title="Embedded icon" /></button>
+    <p>Because this HTA includes an X-UA-Compatible header, 
+    it is displayed in IE9 Standards mode when Internet 
+    Explorer 9 is installed on the system.  As a result,
+    SVG can be used to draw a blue star.</p>     
+
+    <svg width="12cm" height="4cm" viewBox="0 0 1200 400"
+        xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <desc>Example Star</desc>
+      <polygon 
+          fill="blue" stroke="blue" stroke-width="10" 
+          points="350,75  379,161 469,161 397,215 423,301 
+                  350,250 277,301 303,215 231,161 321,161" />
+    </svg>
+    <img src="data:image/gif;base64,R0lGODlhIAAgAOYAAABbAIiwiER8RADMANbW1gCZAGaZZsXFxR3oHTrWOgCDAK60rgD0AA6dDmm+aRZmFlDBPubm5gDoACKNIr7mvlCeUACjAGb/ZqK0ojz4PAB1ACbUJgC1AESSRA7DDgDeAA+FD9jl2FbSVmmtab29vUS6PhqnGj62Poi2iACZAO7u7hPSE8zMzABmAN3d3VCsUHj4eH6/fqfMp1q+WiL/In6ufh1xHXGccUzXTBqwAADuAAC9AAD/AADVAN7w3gtlC0mHSR3FHYjDiAqnAAWSBQB6AB6nHl62XpWmlQCLADfpN3WwdSJsIkSNRB/4H6fEp1DqUEH/QQicCDPMM0mpSQDDAEmUSSKTIpWxlS1xLQBmAACwAMPqvlCkUFGyUZWwlQuiC3G/ahKlEg+MDz7JPhWvFafWp3u4ewtpCx+rH3a1dv///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAUUAGsALAAAAAAgACAAAAf/gGuCg4SFhoeIiYqLjI2Oj5CRhFwQORSSiBQlQ0NhFjOYhBQnFqVnB0YFXiqYPjMFYAUFSwcuDrIvrI+uBWIiaQ01tWtmBWQFuY0+RwUNODAmUljDgkkJCUnJictJRFMXUA1jXwcRhFRlURtJXbqFKmHdQRlRSkRXGCzmhEJENDQrFLQjpCLGmCQenPxDQGTCAn2GQij4wIPHAAUVWBUEkaQKg4oWFTiEeGgCB5ADilRQA6LIjo8oi3R4uO/QiCQMcjKoUqSIBQk6c/LsQIKAu0MyNHzQwVRHj6VNmVrQ0KToUUQadkjYyrWrhAIablhtZCXJh7No0xZocYNaIxRKYtOi7VGErdtGIVps6cG3L100SO46spFkgGHDVTT8COwCk4EWhwdwaPEACUlJTwBwqFJlSwsmNEMJAlBgh4XPoUWvAVKkAIAsqVUHAABAQNGaqkMAADJWNaEIBIz6Hk68eKhAADs=" alt="Embedded icon" title="Embedded icon" />
+    
+    <script language='text/javascript'>
+      var columnDefs = [
+        {headerName: "Make", field: "make"},
+        {headerName: "Model", field: "model"},
+        {headerName: "Price", field: "price"}
+      ];
+          
+      // specify the data
+      var rowData = [
+        {make: "Toyota", model: "Celica", price: 35000},
+        {make: "Ford", model: "Mondeo", price: 32000},
+        {make: "Porsche", model: "Boxter", price: 72000}
+      ];
+          
+      // let the grid know which columns and what data to use
+      var gridOptions = {
+        columnDefs: columnDefs,
+        rowData: rowData
+      };
+  
+      // setup the grid after the page has finished loading
+      //document.addEventListener('DOMContentLoaded', function() {
+          var gridDiv = document.querySelector('#myGrid');
+          //var gridDiv = document.getElementById('#myGrid');
+          new agGrid.Grid(gridDiv, gridOptions);
+      //});
+    </script>
+  
+</body>
+</html>
